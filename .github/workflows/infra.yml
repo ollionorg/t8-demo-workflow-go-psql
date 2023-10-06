@@ -43,9 +43,6 @@ jobs:
           cp -r .platform-repo/examples/platform-demo/modules $TF_CONFIG_DIRECTORY/modules
           rm -rf .platform-repo
 
-      - name: Checkout
-        uses: actions/checkout@v4    
-              
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
         with:
