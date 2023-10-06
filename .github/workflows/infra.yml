@@ -57,3 +57,6 @@ jobs:
           commit_message: terrarium-generate-code
           branch: ${{ github.head_ref || github.ref_name }}
           commit_options: '--signoff'
+          commit_user_name: My GitHub Actions Bot # defaults to "github-actions[bot]"
+          commit_user_email: akash.jaiswal@cldcvr.com # defaults to "41898282+github-actions[bot]@users.noreply.github.com"
+          commit_author: Author <akash.jaiswal@cldcvr.com> # defaults to author of the commit that triggere          
