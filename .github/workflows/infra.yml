@@ -54,7 +54,7 @@ jobs:
       - name: "Push Terrarium generated code at path : ${{ env.TF_CONFIG_DIRECTORY }}"
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: terrarium-generate-code
+          commit_message: "[auto-pushed] Terrarium-generate-code"
           branch: ${{ github.head_ref || github.ref_name }}
           commit_options: '--signoff'  # Adding option to  Verfied & signed commit
           commit_user_name: My GitHub Actions Bot # defaults to "github-actions[bot]"
