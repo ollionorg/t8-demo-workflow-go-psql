@@ -2,6 +2,8 @@ name: Gitleaks - Secret Scanning
 on:
   pull_request:
   push:
+    branches:
+      - main
   workflow_dispatch:
   schedule:
     - cron: "3 */4 * * *" # run once a day at 4 AM
