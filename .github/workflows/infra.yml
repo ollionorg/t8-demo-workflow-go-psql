@@ -28,7 +28,6 @@ jobs:
         with:
           repository: ${{ env.PLATFORM_REPO }}
           ref: ${{ env.PLATFORM_BRANCH }}
-          token: ${{ secrets.GH_TOKEN }}
           path: "./.platform-repo"
 
       - name: Terrarium Install
