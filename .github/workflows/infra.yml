@@ -48,3 +48,4 @@ jobs:
         with:
           commit_message: terrarium-generate-code
           branch: ${{ github.head_ref || github.ref_name }}
+          commit_options: '--signoff'
