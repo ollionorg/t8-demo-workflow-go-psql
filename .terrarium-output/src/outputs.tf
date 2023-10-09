@@ -24,9 +24,9 @@ output "postgres_host" {
   value = { for k, v in module.tr_component_postgres.postgres_endpoints : k => v}
 }
 
-
-
-
+output "redis_host" {
+  value = { for k, v in module.tr_component_redis : k => v }
+}
 
 
 
