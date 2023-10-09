@@ -1,0 +1,63 @@
+name: 'Infra'
+
+on:
+  pull_request:
+
+
+env:
+  PLATFORM_REPO: "cldcvr/terrarium"
+  PLATFORM_BRANCH: "main"
+  PLATFORM_DIR: "examples/platform-demo/platform"
+  TERRARIUM_VERSION: "v0.6"
+  TF_CONFIG_DIRECTORY: "./.terrarium-output"
+
+jobs:
+  t8-generate:
+    name: "Terrarium generate"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Checkout Platform Repo
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.PLATFORM_REPO }}
+          ref: ${{ env.PLATFORM_BRANCH }}
+          path: "./.platform-repo"
+
+      - name: Terrarium Install
+        uses: supplypike/setup-bin@v3
+        with:
+          uri: 'https://github.com/cldcvr/terrarium/releases/download/${{ env.TERRARIUM_VERSION }}/terrarium-${{ env.TERRARIUM_VERSION }}-linux-amd64.tar.gz'
+          name: 'terrarium'
+          version: ${{ env.TERRARIUM_VERSION }}
+
+      - name: Terrarium Generate
+        run: |
+          rm -rf $TF_CONFIG_DIRECTORY
+          terrarium generate -p .platform-repo/$PLATFORM_DIR -a . -o $TF_CONFIG_DIRECTORY/src
+          cp -r .platform-repo/examples/platform-demo/modules $TF_CONFIG_DIRECTORY/modules
+          rm -rf .platform-repo
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true          
+
+
+      - name: "Push Terrarium generated code at path : ${{ env.TF_CONFIG_DIRECTORY }}"
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "[auto-pushed] Terrarium-generate-code"
+          branch: ${{ github.head_ref || github.ref_name }}
+          commit_options: '--signoff'  # Adding option to  Verfied & signed commit
+          commit_user_name: My GitHub Actions Bot # defaults to "github-actions[bot]"
+          commit_user_email: akash.jaiswal@cldcvr.com # defaults to "41898282+github-actions[bot]@users.noreply.github.com"
+          commit_author: Author <akash.jaiswal@cldcvr.com> # defaults to author of the commit that triggere          
