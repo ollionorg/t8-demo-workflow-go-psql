@@ -13,4 +13,4 @@ dependencies:
     inputs:
       version: "11.20"
   - id: cachedb
-    use: redit
+    use: redis
