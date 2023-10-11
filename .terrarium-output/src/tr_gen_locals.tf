@@ -5,6 +5,11 @@ locals {
       version = "11.20"
     }
   }
+  tr_component_redis = {
+    cachedb = {
+      version = "5.0.6"
+    }
+  }
   tr_component_service_private = {}
   tr_component_service_web = {
     banking_app = {
