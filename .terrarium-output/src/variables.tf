@@ -54,23 +54,23 @@ variable "ecs_config" {
 
 
 
-variable "redis_config" {
-  description = "A map of objects that define the Redis database to create."
-  type        = any
-  default = {
-    "default" : {
-      "cluster_size" : 1,
-      "cluster_mode_replicas_per_node_group" : 1,
-      "cluster_mode_num_node_groups" : 1,
-      "instance_type" : "cache.t2.micro",
-      "family" : "redis5.0",
-      "at_rest_encryption_enabled" : true,
-      "transit_encryption_enabled" : true,
-      "port" : null,
-      "number_of_azs" = 1
-    }
-  }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 variable "domain_name" {
   description = "The DNS zone domain name to create records in."
